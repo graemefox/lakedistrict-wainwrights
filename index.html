@@ -51,15 +51,18 @@
         .app-icon {
             width: 150px;
             height: 150px;
-            background: linear-gradient(135deg, #578b02 0%, #6fa503 100%);
-            border-radius: 32px;
+            border-radius: 50%;
             margin: 0 auto 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
             animation: float 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         @keyframes float {
@@ -232,16 +235,20 @@
         }
 
         .screenshot {
-            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
             border-radius: 20px;
             aspect-ratio: 9/19.5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 1rem;
+            overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             border: 8px solid #333;
+            position: relative;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.6s ease;
         }
 
         .mascots {
@@ -417,13 +424,13 @@
 <body>
     <div class="hero">
         <div class="hero-content">
-            <div class="app-icon">🏔️</div>
+            <div class="app-icon"><img src="images/app_icon.png" alt="Lake District Wainwrights"></div>
             <h1>Wainwrights</h1>
             <p class="tagline">Conquer All 214 Peaks of the Lake District</p>
             
             <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">📱 Download on Android</a>
-                <a href="#features" class="btn btn-secondary">✨ Learn More</a>
+                <span class="btn btn-primary" style="cursor: default; opacity: 0.85;">📱 Android App — Coming Soon</span>
+                <a href="mailto:graeme.fox87@gmail.com?subject=Wainwrights%20App%20-%20Register%20Interest&body=Hi!%20I'd%20love%20to%20be%20notified%20when%20the%20Wainwrights%20app%20launches%20on%20Android." class="btn btn-secondary">🔔 Register Your Interest</a>
             </div>
 
             <div class="stats">
@@ -460,9 +467,9 @@
                 </div>
                 
                 <div class="feature">
-                    <span class="feature-icon">🧭</span>
-                    <h3 class="feature-title">Real-Time Compass</h3>
-                    <p class="feature-description">Use GPS tracking to navigate to your selected peak. See your exact distance and get notified when you reach the summit!</p>
+                    <span class="feature-icon">📍</span>
+                    <h3 class="feature-title">Location-Based Peak Bagging</h3>
+                    <p class="feature-description">Your phone knows exactly where you are. Select a fell and watch the distance count down as you get closer — and when you finally step onto that summit, brace yourself for an awesome celebration! 🎉</p>
                 </div>
                 
                 <div class="feature">
@@ -480,13 +487,13 @@
                 <div class="feature">
                     <span class="feature-icon">🎉</span>
                     <h3 class="feature-title">Epic Celebrations</h3>
-                    <p class="feature-description">Experience stunning confetti animations and instant notifications when you unlock new achievements. Every summit deserves a celebration!</p>
+                    <p class="feature-description">Reach a summit and the whole app bursts into life! Dress your cute mountain companion in new accessories, unlock stories and hidden Lake District trivia, and earn beautiful certificates you can actually print and put on your wall. Every fell deserves a moment.</p>
                 </div>
                 
                 <div class="feature">
-                    <span class="feature-icon">👨‍👩‍👧</span>
-                    <h3 class="feature-title">Parent Mode</h3>
-                    <p class="feature-description">Manually manage conquests with a secure parent mode. Perfect for families tracking their children's adventures together.</p>
+                    <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                    <h3 class="feature-title">Multiple Profiles</h3>
+                    <p class="feature-description">The whole family can join the adventure! Create separate profiles for the kids, Dad, Auntie... and yes, even The Dog 🐾 (we don't judge). Each adventurer tracks their own peaks, earns their own medals, and bonds with their own special companion.</p>
                 </div>
             </div>
         </div>
@@ -531,10 +538,18 @@
             <p class="section-subtitle">Beautiful, intuitive, and built for adventure</p>
             
             <div class="screenshots">
-                <div class="screenshot">[Home Screen]</div>
-                <div class="screenshot">[Compass View]</div>
-                <div class="screenshot">[Peak List]</div>
-                <div class="screenshot">[Medals Gallery]</div>
+                <div class="screenshot">
+                    <img id="home-screenshot" src="images/screenshots/screenshot_homescreen.jpeg" alt="Home Screen">
+                </div>
+                <div class="screenshot">
+                    <img src="images/screenshots/screenshot_progress_checker.jpeg" alt="Progress Checker">
+                </div>
+                <div class="screenshot">
+                    <img id="rewards-screenshot" src="images/screenshots/screenshot_rewards_01.jpeg" alt="Rewards">
+                </div>
+                <div class="screenshot">
+                    <img src="images/screenshots/screenshot_multiple_profiles.jpeg" alt="Multiple Profiles">
+                </div>
             </div>
         </div>
     </div>
@@ -544,7 +559,7 @@
             <h2>Begin Your Journey Today</h2>
             <p>Join fellow adventurers in conquering the magnificent peaks of the Lake District. Track your progress, earn achievements, and create memories that will last a lifetime.</p>
             <div class="cta-buttons">
-                <a href="#" class="btn btn-secondary">📱 Download Now</a>
+                <a href="mailto:graeme.fox87@gmail.com?subject=Wainwrights%20App%20-%20Register%20Interest&body=Hi!%20I'd%20love%20to%20be%20notified%20when%20the%20Wainwrights%20app%20launches%20on%20Android." class="btn btn-secondary">🔔 Register Your Interest</a>
             </div>
         </div>
     </div>
@@ -560,5 +575,29 @@
             <p class="copyright">© 2025 Wainwrights. Inspired by the legendary works of Alfred Wainwright.</p>
         </div>
     </footer>
+    <script>
+        function rotateScreenshot(imgId, srcs, intervalMs) {
+            const img = document.getElementById(imgId);
+            let index = 0;
+            setInterval(() => {
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    index = (index + 1) % srcs.length;
+                    img.src = srcs[index];
+                    img.style.opacity = '1';
+                }, 600);
+            }, intervalMs);
+        }
+
+        rotateScreenshot('home-screenshot', [
+            'images/screenshots/screenshot_homescreen.jpeg',
+            'images/screenshots/screenshot_geolocation_bagging.jpeg'
+        ], 4000);
+
+        rotateScreenshot('rewards-screenshot', [
+            'images/screenshots/screenshot_rewards_01.jpeg',
+            'images/screenshots/screenshot_rewards_02.jpeg'
+        ], 5000);
+    </script>
 </body>
 </html>
