@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wainwrights - Conquer All 214 Peaks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #CDB48E 0%, #8B7355 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(139, 115, 85, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .app-icon {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #578b02 0%, #6fa503 100%);
+            border-radius: 32px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #578b02 0%, #6fa503 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(87, 139, 2, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #578b02;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .section-alt {
+            background: linear-gradient(135deg, #f8f5f0 0%, #ebe6de 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #8B7355;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .section-alt .feature {
+            background: white;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #578b02;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .screenshot {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+            border-radius: 20px;
+            aspect-ratio: 9/19.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 8px solid #333;
+        }
+
+        .mascots {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .mascot {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .mascot:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .mascot-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .mascot-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #578b02;
+            margin-bottom: 0.5rem;
+        }
+
+        .mascot-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .journey {
+            background: linear-gradient(135deg, #578b02 0%, #6fa503 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .journey h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .journey p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #6fa503;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .journey h2 {
+                font-size: 2rem;
+            }
+
+            .journey p {
+                font-size: 1.1rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            margin-left: -3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="app-icon">🏔️</div>
+            <h1>Wainwrights</h1>
+            <p class="tagline">Conquer All 214 Peaks of the Lake District</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">📱 Download on Android</a>
+                <a href="#features" class="btn btn-secondary">✨ Learn More</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">214</span>
+                    <span class="stat-label">Epic Peaks</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">43</span>
+                    <span class="stat-label">Medals to Earn</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Adventures</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </div>
+
+    <div id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Your Ultimate Fell-Walking Companion</h2>
+            <p class="section-subtitle">Track your progress through Alfred Wainwright's legendary 214 peaks with style and precision</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">🗺️</span>
+                    <h3 class="feature-title">Interactive Map</h3>
+                    <p class="feature-description">Explore all 214 Wainwright peaks on a beautiful interactive map. See your conquered peaks at a glance with color-coded markers.</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="feature-icon">🧭</span>
+                    <h3 class="feature-title">Real-Time Compass</h3>
+                    <p class="feature-description">Use GPS tracking to navigate to your selected peak. See your exact distance and get notified when you reach the summit!</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Smart Progress Tracking</h3>
+                    <p class="feature-description">Sort and filter peaks by name, height, or completion status. Search through all seven Wainwright books effortlessly.</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">43 Achievement Medals</h3>
+                    <p class="feature-description">Unlock medals for climbing the highest peaks, completing milestones, and bagging multiple summits in a single day. Complete them all!</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="feature-icon">🎉</span>
+                    <h3 class="feature-title">Epic Celebrations</h3>
+                    <p class="feature-description">Experience stunning confetti animations and instant notifications when you unlock new achievements. Every summit deserves a celebration!</p>
+                </div>
+                
+                <div class="feature">
+                    <span class="feature-icon">👨‍👩‍👧</span>
+                    <h3 class="feature-title">Parent Mode</h3>
+                    <p class="feature-description">Manually manage conquests with a secure parent mode. Perfect for families tracking their children's adventures together.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Choose Your Adventure Companion</h2>
+            <p class="section-subtitle">Pick a mascot to join you on your journey through the fells</p>
+            
+            <div class="mascots">
+                <div class="mascot">
+                    <span class="mascot-emoji">🐑</span>
+                    <div class="mascot-name">Sheep</div>
+                    <p class="mascot-description">Your woolly friend, always ready for a gentle stroll</p>
+                </div>
+                
+                <div class="mascot">
+                    <span class="mascot-emoji">🦊</span>
+                    <div class="mascot-name">Fox</div>
+                    <p class="mascot-description">Cunning and quick, perfect for challenging trails</p>
+                </div>
+                
+                <div class="mascot">
+                    <span class="mascot-emoji">🦅</span>
+                    <div class="mascot-name">Osprey</div>
+                    <p class="mascot-description">Soaring high, seeing all the peaks from above</p>
+                </div>
+                
+                <div class="mascot">
+                    <span class="mascot-emoji">🐿️</span>
+                    <div class="mascot-name">Red Squirrel</div>
+                    <p class="mascot-description">Energetic and playful, bouncing from fell to fell</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p class="section-subtitle">Beautiful, intuitive, and built for adventure</p>
+            
+            <div class="screenshots">
+                <div class="screenshot">[Home Screen]</div>
+                <div class="screenshot">[Compass View]</div>
+                <div class="screenshot">[Peak List]</div>
+                <div class="screenshot">[Medals Gallery]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="journey">
+        <div class="container">
+            <h2>Begin Your Journey Today</h2>
+            <p>Join fellow adventurers in conquering the magnificent peaks of the Lake District. Track your progress, earn achievements, and create memories that will last a lifetime.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-secondary">📱 Download Now</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+                <a href="#">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Wainwrights. Inspired by the legendary works of Alfred Wainwright.</p>
+        </div>
+    </footer>
+</body>
+</html>
