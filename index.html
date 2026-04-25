@@ -19,8 +19,24 @@
             overflow-x: hidden;
         }
 
+        /* Full-width watercolour banner at the very top */
+        .site-banner {
+            width: 100%;
+            max-height: 340px;
+            overflow: hidden;
+            display: block;
+            line-height: 0;
+        }
+        .site-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            display: block;
+        }
+
         .hero {
-            min-height: 100vh;
+            min-height: calc(100vh - 340px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -50,10 +66,10 @@
         }
 
         .app-icon {
-            width: 375px;
-            height: 375px;
-            max-width: 80vw;
-            max-height: 80vw;
+            width: 200px;
+            height: 200px;
+            max-width: 50vw;
+            max-height: 50vw;
             border-radius: 50%;
             margin: 0 auto 2rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
@@ -70,7 +86,7 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-16px); }
         }
 
         h1 {
@@ -426,6 +442,10 @@
     </style>
 </head>
 <body>
+    <div class="site-banner">
+        <img src="images/lake_district_banner.png" alt="Lake District Wainwrights">
+    </div>
+
     <div class="hero">
         <div class="hero-content">
             <div class="app-icon"><img src="images/app_icon.png" alt="Lake District Wainwrights"></div>
